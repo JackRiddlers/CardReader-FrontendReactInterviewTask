@@ -7,7 +7,7 @@ const InputContainer = ({ getCardNumber }) => {
     let pattern = /\D/g;
     let result = pastedValue.match(pattern);
     if (!result) {
-      setCardNumber(pastedValue);
+      setCardNumber(pastedValue.slice(0, 16));
       focusMethod(4);
       fourInputs.map((id) => {
         var end = id * 4 - 1;

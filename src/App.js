@@ -19,14 +19,18 @@ export default function App() {
     getDatas();
   }, []);
   const getCardNumber = (cardNum) => {
-    const obj = { id: cards.length + 1, cardNumber: cardNum };
-
+    const obj = { id: cards.length, cardNumber: cardNum };
     setCard((prevState) => [...prevState, obj]);
+    console.log(cards);
+  };
+  const deletion = (idVal) => {
+    let toNextStage = cards.filter((card) => idVal !== card.id);
+    setCard(toNextStage);
   };
   return (
     <div className="App">
       <InputContainer getCardNumber={getCardNumber} />
-      <Listings cards={cards} />
+      <Listings cards={cards} deletion={deletion} />
     </div>
   );
 }
