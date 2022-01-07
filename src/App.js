@@ -5,6 +5,7 @@ import Listings from "./Components/Listings";
 
 export default function App() {
   const [cards, setCard] = useState([]);
+  const [counter, setCounter] = useState(6);
   const getDatas = () => {
     fetch("data.json", {
       headers: {
@@ -19,13 +20,15 @@ export default function App() {
     getDatas();
   }, []);
   const getCardNumber = (cardNum) => {
-    const obj = { id: cards.length, cardNumber: cardNum };
+    let count = counter + 1;
+    setCounter(count);
+    const obj = { id: `${count}`, cardNumber: cardNum };
     setCard((prevState) => [...prevState, obj]);
-    console.log(cards);
   };
   const deletion = (idVal) => {
     let toNextStage = cards.filter((card) => idVal !== card.id);
     setCard(toNextStage);
+    console.log(toNextStage);
   };
   return (
     <div className="App">
