@@ -5,8 +5,9 @@ const InputTab = ({ idNo, nextFocus }) => {
     var target = e.target;
     var maxLength = parseInt(target.attributes["maxLength"].value, 10);
     var len = target.value.length;
-    if (len === maxLength && idNo < 5) {
-      nextFocus(target.value, idNo + 1);
+    if (len === maxLength) {
+      console.log(idNo);
+      nextFocus(target.value, idNo);
     }
   };
   return (
