@@ -1,20 +1,28 @@
 import React from "react";
 
-const InputTab = ({ idNo, nextFocus, complete }) => {
+const InputTab = ({ idNo, nextFocus, complete, passout }) => {
   const inputTag = (e) => {
+    complete();
     var target = e.target;
-    var maxLength = parseInt(target.attributes["maxLength"].value, 10);
     var len = target.value.length;
+    var maxLength = parseInt(target.attributes["maxLength"].value, 10);
     if (len === maxLength) {
       nextFocus(target.value, idNo);
-      complete(false, idNo);
-    } else {
-      complete(true, idNo);
     }
   };
+  // const pasted = (e) => {
+  //   const text = e.target.value;
+  //   console.log(text);
+  //   passout(text, idNo);
+  // };
   return (
     <React.Fragment>
-      <input id={idNo} maxLength="4" onKeyUp={inputTag} />
+      <input
+        id={idNo}
+        maxLength="4"
+        onKeyUp={inputTag}
+        // onPaste={pasted}
+      />
     </React.Fragment>
   );
 };

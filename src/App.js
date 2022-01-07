@@ -8,7 +8,6 @@ export default function App() {
   const getData = (val) => {
     setCard((prevState) => [...prevState, val]);
   };
-
   return (
     <div className="App">
       <InputContainer getData={getData} />

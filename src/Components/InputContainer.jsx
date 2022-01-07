@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import InputTab from "./InputTab";
 
 const InputContainer = ({ getData }) => {
-  const [cardNumber, setCardNumber] = useState("");
+  const [cardNumber, setCardNumber] = useState("0000000000000000");
   let iDs = [1, 2, 3, 4];
+  const passout = (text, idNo) => {
+    iDs.map((id) => {
+      let start = id * 4 - 4;
+      let end = id * 4 - 1;
+      document.getElementById(id).value = text.slice(start, end);
+    });
+    document.getElementById("adder").focus();
+  };
   const nextFocus = (val, idNo) => {
     if (idNo <= 3) {
       document.getElementById(idNo + 1).focus();
@@ -31,9 +39,10 @@ const InputContainer = ({ getData }) => {
   const clear = () => {
     iDs.map((ids) => (document.getElementById(ids).value = ""));
     setButtonState(true);
+    setCardNumber("0000000000000000");
   };
   const [buttonState, setButtonState] = useState(true);
-  const complete = (value, idNo) => {
+  const complete = () => {
     //checks if all inputs are filled
     iDs.map((val) => {
       //maps each input element
@@ -48,10 +57,8 @@ const InputContainer = ({ getData }) => {
         //if not button is disabled
         setButtonState(true);
         return null;
-      } else {
-        //if this else statement is reached,the input has 4 elements
-        setButtonState(false);
       }
+      setButtonState(false);
     });
   };
 
@@ -63,6 +70,7 @@ const InputContainer = ({ getData }) => {
           idNo={value}
           nextFocus={nextFocus}
           complete={complete}
+          passout={passout}
         />
       ))}
       <button
