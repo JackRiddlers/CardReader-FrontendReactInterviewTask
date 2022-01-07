@@ -1,13 +1,15 @@
 import React from "react";
 
-const InputTab = ({ idNo, nextFocus }) => {
+const InputTab = ({ idNo, nextFocus, complete }) => {
   const inputTag = (e) => {
     var target = e.target;
     var maxLength = parseInt(target.attributes["maxLength"].value, 10);
     var len = target.value.length;
     if (len === maxLength) {
-      console.log(idNo);
       nextFocus(target.value, idNo);
+      complete(false, idNo);
+    } else {
+      complete(true, idNo);
     }
   };
   return (

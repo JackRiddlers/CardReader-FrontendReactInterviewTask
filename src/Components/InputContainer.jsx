@@ -2,43 +2,76 @@ import React, { useState } from "react";
 import InputTab from "./InputTab";
 
 const InputContainer = ({ getData }) => {
-  const [cardNumber, setCardNumber] = useState("0000000000000000");
+  const [cardNumber, setCardNumber] = useState("");
   let iDs = [1, 2, 3, 4];
   const nextFocus = (val, idNo) => {
     if (idNo <= 3) {
       document.getElementById(idNo + 1).focus();
     } else if (idNo === 4) document.getElementById("adder").focus();
-
     switch (idNo) {
       case 1:
         setCardNumber(val + cardNumber.slice(4, 17));
+        console.log(cardNumber);
         break;
       case 2:
         setCardNumber(cardNumber.slice(0, 4) + val + cardNumber.slice(8, 17));
+        console.log(cardNumber);
         break;
       case 3:
         setCardNumber(cardNumber.slice(0, 8) + val + cardNumber.slice(12, 17));
+        console.log(cardNumber);
         break;
       case 4:
         setCardNumber(cardNumber.slice(0, 12) + val);
+        console.log(cardNumber);
         break;
       default:
-        console.log(cardNumber);
     }
   };
   const clear = () => {
     iDs.map((ids) => (document.getElementById(ids).value = ""));
+    setButtonState(true);
   };
+  const [buttonState, setButtonState] = useState(true);
+  const complete = (value, idNo) => {
+    //checks if all inputs are filled
+    iDs.map((val) => {
+      //maps each input element
+      let element = document.getElementById(val).value; //takes the value of input
+      if (element == null) {
+        //check if its null
+        //if any input is null button is deactivated
+        setButtonState(true);
+        return null;
+        //if input is null,checks if input length is 4
+      } else if (element.length < 4) {
+        //if not button is disabled
+        setButtonState(true);
+        return null;
+      } else {
+        //if this else statement is reached,the input has 4 elements
+        setButtonState(false);
+      }
+    });
+  };
+
   return (
     <React.Fragment>
       {iDs.map((value) => (
-        <InputTab key={"INPUT" + value} idNo={value} nextFocus={nextFocus} />
+        <InputTab
+          key={"INPUT" + value}
+          idNo={value}
+          nextFocus={nextFocus}
+          complete={complete}
+        />
       ))}
       <button
+        disabled={buttonState}
         id="adder"
         onClick={() => {
-          nextFocus();
           clear();
+          console.log(cardNumber);
+          getData(cardNumber);
         }}
       >
         Add Card
