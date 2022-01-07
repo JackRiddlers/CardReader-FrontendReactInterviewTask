@@ -1,88 +1,75 @@
 import React, { useState } from "react";
 import InputTab from "./InputTab";
-
-const InputContainer = ({ getData }) => {
+const InputContainer = ({ getCardNumber }) => {
   const [cardNumber, setCardNumber] = useState("0000000000000000");
-  let iDs = [1, 2, 3, 4];
-  const passout = (text, idNo) => {
-    iDs.map((id) => {
-      let start = id * 4 - 4;
-      let end = id * 4 - 1;
-      document.getElementById(id).value = text.slice(start, end);
+  const fourInputs = [1, 2, 3, 4];
+  const pastedDataGet = (pastedValue) => {
+    fourInputs.map((id) => {
+      var end = id * 4 - 1;
+      var start = end - 3;
+      document.getElementById(id).value = pastedValue.slice(start, end + 1);
     });
-    document.getElementById("adder").focus();
   };
-  const nextFocus = (val, idNo) => {
-    if (idNo <= 3) {
-      document.getElementById(idNo + 1).focus();
-    } else if (idNo === 4) document.getElementById("adder").focus();
-    switch (idNo) {
+  const inputStates = (id) => {
+    let value = document.getElementById(id).value;
+    buttonDisabling(value === null);
+    if (value.length === 4) buttonDisabling(false);
+  };
+  const buttonDisabling = (booleanVal) => {
+    document.getElementById("add").disabled = booleanVal;
+  };
+  const clear = () => {
+    fourInputs.map((id) => (document.getElementById(id).value = ""));
+    buttonDisabling(true);
+  };
+
+  const getCardNo = () => {
+    clear();
+    getCardNumber(cardNumber);
+    setCardNumber("0000000000000000");
+  };
+
+  const focusMethod = (x) => {
+    document.getElementById(x).focus();
+  };
+  const nextfocus = (fourDigitValue, id) => {
+    switch (id) {
       case 1:
-        setCardNumber(val + cardNumber.slice(4, 17));
-        console.log(cardNumber);
+        setCardNumber(fourDigitValue + cardNumber.slice(4, 17));
+        focusMethod(2);
         break;
       case 2:
-        setCardNumber(cardNumber.slice(0, 4) + val + cardNumber.slice(8, 17));
-        console.log(cardNumber);
+        setCardNumber(
+          cardNumber.slice(0, 4) + fourDigitValue + cardNumber.slice(8, 17)
+        );
+        focusMethod(3);
         break;
       case 3:
-        setCardNumber(cardNumber.slice(0, 8) + val + cardNumber.slice(12, 17));
-        console.log(cardNumber);
+        setCardNumber(
+          cardNumber.slice(0, 8) + fourDigitValue + cardNumber.slice(12, 17)
+        );
+        focusMethod(4);
         break;
       case 4:
-        setCardNumber(cardNumber.slice(0, 12) + val);
-        console.log(cardNumber);
+        setCardNumber(cardNumber.slice(0, 12) + fourDigitValue);
+        focusMethod("add");
         break;
       default:
     }
   };
-  const clear = () => {
-    iDs.map((ids) => (document.getElementById(ids).value = ""));
-    setButtonState(true);
-    setCardNumber("0000000000000000");
-  };
-  const [buttonState, setButtonState] = useState(true);
-  const complete = () => {
-    //checks if all inputs are filled
-    iDs.map((val) => {
-      //maps each input element
-      let element = document.getElementById(val).value; //takes the value of input
-      if (element == null) {
-        //check if its null
-        //if any input is null button is deactivated
-        setButtonState(true);
-        return null;
-        //if input is null,checks if input length is 4
-      } else if (element.length < 4) {
-        //if not button is disabled
-        setButtonState(true);
-        return null;
-      }
-      setButtonState(false);
-    });
-  };
-
   return (
     <React.Fragment>
-      {iDs.map((value) => (
+      {fourInputs.map((data) => (
         <InputTab
-          key={"INPUT" + value}
-          idNo={value}
-          nextFocus={nextFocus}
-          complete={complete}
-          passout={passout}
+          key={"input" + data}
+          id={data}
+          nextfocus={nextfocus}
+          pastedDataGet={pastedDataGet}
+          inputState={inputStates}
         />
       ))}
-      <button
-        disabled={buttonState}
-        id="adder"
-        onClick={() => {
-          clear();
-          console.log(cardNumber);
-          getData(cardNumber);
-        }}
-      >
-        Add Card
+      <button disabled={} id="add" onClick={getCardNo}>
+        Submit
       </button>
     </React.Fragment>
   );

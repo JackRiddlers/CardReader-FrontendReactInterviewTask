@@ -3,8 +3,11 @@ import React from "react";
 const Listings = ({ cards }) => {
   return (
     <React.Fragment>
-      {cards.map((card, id) => (
-        <div key={"card" + id}>{card}</div>
+      {cards.map((card) => (
+        <div>
+          <span>{card.cardNumber}</span>
+          <button>Delete</button>
+        </div>
       ))}
     </React.Fragment>
   );
