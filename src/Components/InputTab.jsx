@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputTab = ({ id, nextfocus, pastedDataGet, inputState }) => {
+const InputTab = ({ id, nextfocus, pastedDataGet }) => {
   const lengthCheck = (eventTarget) => {
     var length = eventTarget.value.length;
     if (length === 4) {
