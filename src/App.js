@@ -32,7 +32,11 @@ export default function App() {
   };
   return (
     <div className="App">
-      <InputContainer getCardNumber={getCardNumber} />
+      <span>Card Number:</span>
+      <InputContainer
+        className="input-container"
+        getCardNumber={getCardNumber}
+      />
       <Listings cards={cards} deletion={deletion} />
     </div>
   );

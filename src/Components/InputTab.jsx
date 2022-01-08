@@ -27,7 +27,13 @@ const InputTab = ({ id, nextfocus, pastedDataGet }) => {
   };
   return (
     <React.Fragment>
-      <input id={id} maxLength="4" onKeyUp={checkIfNum} onPaste={handlePaste} />
+      <input
+        id={id}
+        className="inputTab"
+        maxLength="4"
+        onKeyUp={checkIfNum}
+        onPaste={handlePaste}
+      />
     </React.Fragment>
   );
 };

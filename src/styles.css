@@ -2,7 +2,47 @@
   font-family: sans-serif;
   text-align: center;
 }
-
+.inputTab {
+  width: 60px;
+  font-size: 25px;
+  padding: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.card-set {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+}
+.card-name-container {
+  display: flex;
+  border-bottom: 1px solid red;
+  padding: 15px;
+  width: 250px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.delete {
+  justify-content: center;
+  align-items: center;
+}
+.del-icon {
+  font-size: 25px;
+}
+#add {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: #ff3c00;
+}
+#add:active {
+  transform: scale(0.9);
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
