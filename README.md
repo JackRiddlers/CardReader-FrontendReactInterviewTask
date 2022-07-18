@@ -1,2 +1,2 @@
-# CardReader-FrontendReactInterviewTask
+# CardReader-FrontendReact
 Created with CodeSandbox
